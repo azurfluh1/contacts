@@ -1,0 +1,301 @@
+<html>
+<head>
+	<title>Contacts</title>
+	<style>
+		.modal {
+			border: 2px solid #4d4d4d;
+			display: inline-block;
+		    border-radius: 15px;
+		    overflow: hidden;
+		    background: #4d4d4d;
+		}
+		.modal_header{
+			background: rgb(37,37,37);
+			background: linear-gradient(0deg, rgba(37,37,37,1) 0%, rgba(62,62,62,1) 50%);
+			font-family: Helvetica;
+			color: white;
+			font-size: 14px;
+			padding: 20px 12px;
+			border-bottom: 2px solid #131313;
+		}
+		.modal_footer{
+			background-color: #202020;
+			text-align: right;
+			padding: 12px;
+		}
+		.contact {
+			font-family: Helvetica;
+			font-size: 12px;
+			color: white;
+			background-color: #212121;
+			border-bottom: 2px solid #131313;
+			cursor: pointer;
+			width: 250px;
+		}
+		.contact.selected {
+			border: none;
+			background-color: #484848 !important;
+			z-index: 2;
+			position: relative;
+		    border-right: 2px solid #1d1d1d;
+		}
+		.contact.selected .dropdown {
+			display: block;
+		}
+		.contact.selected .contact_name {
+			border: none !important;
+		}
+		.contact.selected .contact_name_wrapper {
+			border: none !important;
+		}
+		.contact.selected .contact_info {
+			color: #00f6ff;
+			text-decoration: underline;
+		}
+		.contact:nth-child(odd){
+			background-color: #1a1a1a;
+		}
+		.contact:nth-child(odd) .contact_name_wrapper{
+			border-right: 1px solid #171717;
+		}
+		.contact:nth-child(odd) .contact_name{
+			border-right: 1px solid #191919;
+		}
+		.status{
+			margin-right: 12px;
+			width: 12px;
+			height: 12px;
+			border-radius: 100%;
+			display: inline-block;
+		}
+		.status.green {
+			background-color: #00ff1e;
+		}
+		.status.red {
+			background-color: #ff0000;
+		}
+		.status.yellow {
+			background-color: #c3c118;
+		}
+		.contact_name_wrapper {
+			display: inline-block;
+    		border-right: 1px solid #1c1c1c;
+		}
+		.contact_name {
+			border-right: 1px solid #1e1e1e;
+			padding: 12px;
+			display: inline-block;
+			width: 80px;
+		}
+		.contact_info {
+			color: #565656;
+			font-size: 12px;
+			padding: 12px;
+			display: inline-block;
+		}
+		.number {
+			display: none;
+		}
+		.modal_contacts {
+			position: relative;
+		}
+		.contacts_overlay {
+			position: absolute;
+		    width: 100%;
+		    height: 100%;
+		    background-color: #000000d4;
+		    top: 0;
+		    display: none;
+		}
+		.dropdown{
+	        position: absolute;
+		    background: #484848;
+		    color: white;
+		    z-index: 9;
+		    right: 0;
+		    padding: 0 15px 15px 15px;
+		    display: none;
+		    border-left: 2px solid #1d1d1d;
+		}
+		.dropdown.last {
+			bottom: 38px;
+    		padding-top: 15px;
+    		padding-bottom: 0;
+		}
+	</style>
+
+	<script>
+		function changeContact(){
+			var el = document.getElementById("contact_select");
+			var selected = el.options[el.selectedIndex].value;
+			if(selected == "email"){
+				var el = document.getElementsByClassName('number'), i;
+				for (var i = 0; i < el.length; i ++) {
+				    el[i].style.display = 'none';
+				}
+				var el = document.getElementsByClassName('email'), i;
+				for (var i = 0; i < el.length; i ++) {
+				    el[i].style.display = 'inline-block';
+				}
+			}else{
+				var el = document.getElementsByClassName('email'), i;
+				for (var i = 0; i < el.length; i ++) {
+				    el[i].style.display = 'none';
+				}
+				var el = document.getElementsByClassName('number'), i;
+				for (var i = 0; i < el.length; i ++) {
+				    el[i].style.display = 'inline-block';
+				}
+			}
+		}
+		function showContact(e){
+			console.log(e);
+			e.classList.add('selected');
+			document.getElementById('overlay').style.display = 'block';
+		}
+		function removeOverlay(){
+			document.getElementById('overlay').style.display = 'none';
+			var el = document.getElementsByClassName('selected');
+			for (var i = 0; i < el.length; i ++) {
+			    el[i].classList.remove('selected');
+			}
+		}
+	</script>
+</head>
+<body>
+	<div class="modal">
+		<div class="modal_header">
+			Contacts
+		</div>
+		<div class="modal_contacts">
+			<div class="contact" onclick="showContact(this)">
+				<div class="contact_name_wrapper">
+					<div class="contact_name">
+						<div class="status green"></div>
+						Christian
+					</div>
+				</div>
+				<div class="contact_info">
+					<div class="email">christian@yahoo.com</div><div class="number">323-555-1234</div>
+				</div>
+				<div class="dropdown">
+					<div>555.555.5555</div><br>
+					<div>6539 Wilton Ave.<br>Culver City CA 90234</div>
+				</div>
+			</div>
+			<div class="contact" onclick="showContact(this)">
+				<div class="contact_name_wrapper">
+					<div class="contact_name">
+						<div class="status green"></div>
+						Rich
+					</div>
+				</div>
+				<div class="contact_info">
+					<div class="email">rich@tripod.com</div><div class="number">323-555-1234</div>
+				</div>
+				<div class="dropdown">
+					<div>555.555.5555</div><br>
+					<div>6539 Wilton Ave.<br>Culver City CA 90234</div>
+				</div>
+			</div>
+			<div class="contact" onclick="showContact(this)">
+				<div class="contact_name_wrapper">
+					<div class="contact_name">
+						<div class="status green"></div>
+						Scott
+					</div>
+				</div>
+				<div class="contact_info">
+					<div class="email">scott@mailinator.com</div><div class="number">323-555-1234</div>
+				</div>
+				<div class="dropdown">
+					<div>555.555.5555</div><br>
+					<div>6539 Wilton Ave.<br>Culver City CA 90234</div>
+				</div>
+			</div>
+			<div class="contact" onclick="showContact(this)">
+				<div class="contact_name_wrapper">
+					<div class="contact_name">
+						<div class="status green"></div>
+						Danny
+					</div>
+				</div>
+				<div class="contact_info">
+					<div class="email">danny@hotmail.com</div><div class="number">323-555-1234</div>
+				</div>
+				<div class="dropdown">
+					<div>555.555.5555</div><br>
+					<div>6539 Wilton Ave.<br>Culver City CA 90234</div>
+				</div>
+			</div>
+			<div class="contact" onclick="showContact(this)">
+				<div class="contact_name_wrapper">
+					<div class="contact_name">
+						<div class="status red"></div>
+						Taka
+					</div>
+				</div>
+				<div class="contact_info">
+					<div class="email">taka@myspace.com</div><div class="number">323-555-1234</div>
+				</div>
+				<div class="dropdown">
+					<div>555.555.5555</div><br>
+					<div>6539 Wilton Ave.<br>Culver City CA 90234</div>
+				</div>
+			</div>
+			<div class="contact" onclick="showContact(this)">
+				<div class="contact_name_wrapper">
+					<div class="contact_name">
+						<div class="status yellow"></div>
+						Tim
+					</div>
+				</div>
+				<div class="contact_info">
+					<div class="email">tim@netscape.com</div><div class="number">323-555-1234</div>
+				</div>
+				<div class="dropdown">
+					<div>555.555.5555</div><br>
+					<div>6539 Wilton Ave.<br>Culver City CA 90234</div>
+				</div>
+			</div>
+			<div class="contact" onclick="showContact(this)">
+				<div class="contact_name_wrapper">
+					<div class="contact_name">
+						<div class="status green"></div>
+						Patrick
+					</div>
+				</div>
+				<div class="contact_info">
+					<div class="email">patrick@live.com</div><div class="number">323-555-1234</div>
+				</div>
+				<div class="dropdown">
+					<div>555.555.5555</div><br>
+					<div>6539 Wilton Ave.<br>Culver City CA 90234</div>
+				</div>
+			</div>
+			<div class="contact" onclick="showContact(this)">
+				<div class="contact_name_wrapper">
+					<div class="contact_name">
+						<div class="status yellow"></div>
+						Jacques
+					</div>
+				</div>
+				<div class="contact_info">
+					<div class="email">jacques@aol.com</div><div class="number">323-555-1234</div>
+				</div>
+				<div class="dropdown last">
+					<div>555.555.5555</div><br>
+					<div>6539 Wilton Ave.<br>Culver City CA 90234</div>
+				</div>
+			</div>
+			<div class="contacts_overlay" id="overlay" onclick="removeOverlay()"></div>
+		</div>
+		<div class="modal_footer">
+			<select id="contact_select" onchange="changeContact()">
+				<option value="email">Email address</option>
+				<option value="phone">Phone number</option>
+			</select>
+		</div>
+	</div>
+</body
+</html>
